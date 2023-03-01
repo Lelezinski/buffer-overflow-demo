@@ -1,2 +1,1 @@
-#!/usr/bin/python3
-print 'A' * 116
+python3 -c 'print("A"*222)'

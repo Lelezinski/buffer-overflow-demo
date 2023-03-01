@@ -7,5 +7,6 @@ int main(int argc, char *argv[])
 	strcpy(buf, argv[1]);
 	printf("# Buffer Content:\n%s\n", buf);
 	
+	// commento a caso
 	return(0);
 }

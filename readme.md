@@ -14,7 +14,7 @@ $> gcc -fno-stack-protector -z execstack vulnerable.c -o vulnerable
 
 # Credits
 Group n.03:
-- Lorenzo Ruotolo, s313207
-- [...]
-- [...]
-- [...]
+- Marco Chiarle
+- Lorenzo Ruotolo
+- Giovanni Santangelo
+- Alessandro Vargiu

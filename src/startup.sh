@@ -13,18 +13,18 @@ cleanup() {
 
 trap cleanup EXIT
 
-while true; do
-    rm -f pip
-    mkfifo pip
+# Listener (executed only once)
+rm -f pip
+mkfifo pip
 
-    # Listener
-    nc -lk "$port" 0< pip | {
+nc -lk "$port" 0< pip | {
 
-        # Service
-        setarch "$(arch)" -R "$startup" 
+    # Startup program (executed in a loop)
+    while true; do
+        setarch "$(arch)" -R "$startup"
+    done
 
-    } 1>pip
+} 1>pip
 
-    # Cleanup before waiting for the next connection
-    rm -f pip
-done
+# Cleanup after listener exits
+rm -f pip

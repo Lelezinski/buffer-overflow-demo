@@ -45,8 +45,13 @@ void parseMessage(char *message)
     // Convert each character in the message to Morse code and blink the LED and sound the speaker
     for (int i = 0; i < strlen(message); i++)
     {
-        convertAndBlinkSound(message[i]);
-        usleep(1200000); // Sleep between characters
+        if (isalpha(message[i]))
+        {
+            convertAndBlinkSound(message[i]);
+            usleep(1200000); // Sleep between characters
+        }
+        else
+            break;
     }
 }
 

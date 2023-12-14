@@ -40,7 +40,17 @@ const char *morseCode[] = {
     "--.."  // Z
 };
 
-// Function to handle (SIGINT) signal
+void parseMessage(char *message)
+{
+    // Convert each character in the message to Morse code and blink the LED and sound the speaker
+    for (int i = 0; i < strlen(message); i++)
+    {
+        convertAndBlinkSound(message[i]);
+        usleep(1200000); // Sleep between characters
+    }
+}
+
+// Function to handle exit signals
 void signalHandler(int signum)
 {
     // Turn off the LEDs and buzzer
@@ -102,6 +112,8 @@ void convertAndBlinkSound(char ch)
 
 int main()
 {
+    setbuf(stdout, NULL);
+
     // Initialize bcm2835 library
     if (!bcm2835_init())
     {
@@ -120,22 +132,15 @@ int main()
 
     turnOnLED(LED_START_PIN);
 
-    // Loop to wait for multiple messages
-    while (1)
-    {
-        // Take input message
-        char message[80];
-        printf("%p\n", message); // address of the message array
-        printf("Enter a message: ");
-        gets(message);
+    char message[80];
+    printf("[DEBUG] %p\n", message); // address of the message array
 
-        // Convert each character in the message to Morse code and blink the LED and sound the speaker
-        for (int i = 0; i < strlen(message); i++)
-        {
-            convertAndBlinkSound(message[i]);
-            usleep(1200000); // between chars
-        }
-    }
+    // Take input message
+    puts("Enter a message. ");
+    gets(message);
+    printf("Received: %s\n", message);
+
+    parseMessage(message);
 
     return 0;
 }

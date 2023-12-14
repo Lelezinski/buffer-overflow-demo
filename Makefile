@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-fno-stack-protector -w
+CFLAGS=-O0 -fno-stack-protector -w
 
 LIB=-lbcm2835
 

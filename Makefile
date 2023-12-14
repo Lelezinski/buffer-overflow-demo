@@ -7,17 +7,15 @@ SRCDIR=./src/
 OUTDIR=./out/
 RESDIR=./res/
 
-#SRC=badcode.c
-#OUT=badcode
-SRC=morse.c
-OUT=morse
+SRC=morsecode.c
+OUT=morsecode
 
-all: shell badcode payload
+all: shell morsecode payload
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-badcode: $(SRCDIR)$(SRC)
+morsecode: $(SRCDIR)$(SRC)
 	$(CC) $(CFLAGS) $(SRCDIR)$(SRC) -o $(OUTDIR)$(OUT) $(LIB)
 	execstack -s $(OUTDIR)$(OUT)
 

@@ -6,9 +6,9 @@
 #include <signal.h>
 
 // Define GPIO pins for the LED and loudspeaker
-#define LED_START_PIN RPI_V2_GPIO_P1_16 // GPIO pin 16 on the Raspberry Pi (Blue LED)
-#define LED_PIN RPI_V2_GPIO_P1_11       // GPIO pin 11 on the Raspberry Pi
-#define BUZZER_PIN RPI_V2_GPIO_P1_12    // GPIO pin 18 on the Raspberry Pi (hardware PWM)
+#define LED_START_PIN RPI_V2_GPIO_P1_16 // GPIO pin 16 on the Raspberry Pi (Green LED)
+#define LED_PIN RPI_V2_GPIO_P1_11       // GPIO pin 11 on the Raspberry Pi (Red LEDs)
+#define BUZZER_PIN RPI_V2_GPIO_P1_18    // GPIO pin 18 on the Raspberry Pi (Buzzer)
 
 // Define Morse code representations for each letter
 const char *morseCode[] = {
@@ -43,8 +43,10 @@ const char *morseCode[] = {
 // Function to handle (SIGINT) signal
 void signalHandler(int signum)
 {
+    // Turn off the LEDs and buzzer
+    bcm2835_gpio_write(LED_START_PIN, LOW);
     bcm2835_gpio_write(LED_PIN, LOW);
-    bcm2835_gpio_write(BUZZER_PIN, LOW); // Turn off the LED and buzzer
+    bcm2835_gpio_write(BUZZER_PIN, LOW);
     bcm2835_close();
     exit(signum);
 }
@@ -109,6 +111,7 @@ int main()
 
     // Register the signal handler for exit
     signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
 
     // Set the pins as output
     bcm2835_gpio_fsel(LED_PIN, BCM2835_GPIO_FSEL_OUTP);

@@ -147,5 +147,6 @@ int main()
 
     parseMessage(message);
 
+    signalHandler(0);
     return 0;
 }

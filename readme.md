@@ -39,35 +39,41 @@ Upon connecting to the victim's hosted service with netcat, the attacker injects
 
 ### Attack Steps
 
+#### Board Connection Layout
+
+The demonstration is implemented on a Raspberry Pi 3B (ARM A53 Processor) running Raspbian Linux. The board is connected as shown in the schematic below with some LEDs and a Piezo Buzzer driven by `morsecode`, in order to display the message translated in morsecode to the outside world.
+
+![System Schematics](./docs/schematic.png)
+
 #### Victim's Machine
 
 1. Change to the `src` directory:
 
-   ```bash
-   $ cd src
-   ```
+    ```bash
+    $ cd src
+    ```
 
 2. On one terminal, create a named pipe and listen for incoming data on port 8000:
 
-  ```bash
-  $ mkfifo pip
-  $ nc -l 8000 > pip
-  ```
+    ```bash
+    $ mkfifo pip
+    $ nc -l 8000 > pip
+    ```
 
 3. On another terminal, execute the morsecode program, redirecting input from the named pipe:
 
-  ```bash
-  cat pip | setarch `arch` -R ./morsecode
-  ```
+    ```bash
+    cat pip | setarch `arch` -R ./morsecode
+    ```
 
 #### Attacker's Machine
 
-1. Discover the return address using gdb.
-2. Generate the payload using makepayload.sh.
+1. Discover the return address using gdb, or simply look at the printed value at the start of the program.
+2. Generate the payload based on the corresponding return address using `makepayload.sh`.
 3. Inject the payload into the victim's service by connecting to it with netcat:
 
   ```bash
-  $ (cat payload.bin; cat) | nc 127.0.0.1 8000
+  $ (cat ./out/payload.bin; cat) | nc 172.20.10.10 8000
   ```
 
 Verify the successful injection by checking the spawned shell on the victim's machine.
@@ -78,3 +84,14 @@ Group n.03:
 - Lorenzo Ruotolo
 - Giovanni Santangelo
 - Alessandro Vargiu
+
+Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg

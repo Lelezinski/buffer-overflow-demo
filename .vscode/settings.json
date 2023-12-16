@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "bcm2835.h": "c",
-        "stdio.h": "c"
-    }
-}

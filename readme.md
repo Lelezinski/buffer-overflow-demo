@@ -1,6 +1,6 @@
 # Buffer Overflow Attack: Privilege Escalation
 
-*Operating Systems for Embedded Systems A.Y. 2022/23 group project: a Priviledge Escalation demonstration exploiting Buffer Overflow.*
+*Operating Systems for Embedded Systems A.Y. 2022/23 group project: a Privilege Escalation demonstration exploiting Buffer Overflow.*
 
 ## What is a Buffer Overflow
 

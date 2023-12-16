@@ -44,11 +44,15 @@ Upon connecting to the victim's hosted service with netcat, the attacker injects
 
 #### Board Connection Layout
 
-The demonstration is implemented on a Raspberry Pi 3B (ARM A53 Processor) running Raspbian Linux. The board is connected as shown in the schematic below with some LEDs and a Piezo Buzzer driven by `morsecode`, in order to display the message translated in morsecode to the outside world.
+The demonstration is implemented on a Raspberry Pi 3B (ARM Cortex A53 Processor) running Raspbian Linux. The board is connected as shown in the schematic below with some LEDs and a Piezo Buzzer driven by `morsecode`, in order to display the message translated in morsecode to the outside world.
 
 ![System Schematics](./docs/schematics.png)
 
 #### Victim's Machine
+
+The `src/startup.sh` script allows the system to automatically run the program and link it with netcat on the network. This script can also be autonomously launched at boot time by creating a systemctl service like we did for our machine.
+
+In alternative, the manual steps are:
 
 1. Change to the `src` directory:
 
@@ -73,9 +77,9 @@ The demonstration is implemented on a Raspberry Pi 3B (ARM A53 Processor) runnin
 
 1. Discover the return address using gdb, or simply look at the printed value at the start of the program.
 2. Generate the payload based on the corresponding return address using `makepayload.sh`.
-3. Inject the payload into the victim's service by connecting to it with netcat:
+3. Inject the payload into the victim's service by connecting to it with netcat ($IP is the local IP of the Victim's Machine):
    ```bash
-   $ (cat ./out/payload.bin; cat) | nc 172.20.10.10 8000
+   $ (cat ./out/payload.bin; cat) | nc $IP 8000
    ```
 
 Verify the successful injection by checking the spawned shell on the victim's machine.
